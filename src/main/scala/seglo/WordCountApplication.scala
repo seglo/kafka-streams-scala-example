@@ -1,14 +1,15 @@
 package seglo
 
+// DOCS START
+
 import java.util.Properties
 import java.util.concurrent.TimeUnit
-import java.util.regex.Pattern
 
 import org.apache.kafka.streams.kstream.Materialized
+import org.apache.kafka.streams.scala.ImplicitConversions._
 import org.apache.kafka.streams.scala._
 import org.apache.kafka.streams.scala.kstream._
 import org.apache.kafka.streams.{KafkaStreams, StreamsConfig}
-import ImplicitConversions._
 
 object WordCountApplication extends App {
   import DefaultSerdes._
@@ -25,11 +26,7 @@ object WordCountApplication extends App {
   val wordCounts: KTable[String, Long] = textLines
     .flatMapValues(textLine => textLine.toLowerCase.split("\\W+"))
     .groupBy((_, word) => word)
-//    .count()
-    .count(Materialized.as("counts-store")
-      .withKeySerde(DefaultSerdes.stringSerde)
-      .withValueSerde(DefaultSerdes.longSerde)
-    )
+    .count(Materialized.as("counts-store").withKeySerde(DefaultSerdes.stringSerde))
   wordCounts.toStream.to("WordsWithCountsTopic")
 
   val streams: KafkaStreams = new KafkaStreams(builder.build(), config)
@@ -39,3 +36,4 @@ object WordCountApplication extends App {
     streams.close(10, TimeUnit.SECONDS)
   }
 }
+// DOCS END

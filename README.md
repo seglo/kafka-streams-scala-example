@@ -7,7 +7,18 @@ $ ./gradlew -PscalaVersion=2.11 install
 $ ./gradlew -PscalaVersion=2.12 install
 ```
 
-## `WordCountApplication` topic usage
+## WordCountApplication example
+
+Docs location:
+
+* `/documentation/streams/developer-guide/dsl-api.html#scala-dsl-sample-usage`
+* `/documentation/streams/` (Scala Example)
+
+See `WordCountApplication` in this repo.
+
+https://github.com/seglo/kafka-streams-scala-example/blob/master/src/main/scala/seglo/WordCountApplication.scala
+
+### Running
 
 Run `kafka-one-broker` compose file in `./docker/docker-compose.yml`
 
@@ -59,3 +70,24 @@ just    3
 so      3
 great   2
 ```
+
+## Implicit SerDes Example
+
+Docs location:
+
+* `/documentation/streams/developer-guide/dsl-api.html#scala-dsl-implicit-serdes`
+
+See `StreamToTableJoinScalaIntegrationTestImplicitSerdes` test in [`apache/kafka`](https://github.com/apache/kafka/)
+
+https://github.com/apache/kafka/blob/trunk/streams/streams-scala/src/test/scala/org/apache/kafka/streams/scala/StreamToTableJoinScalaIntegrationTestImplicitSerdes.scala#L77..L102
+
+
+## User-defined SerDes Example
+
+Docs location:
+
+* `/documentation/streams/developer-guide/dsl-api.html#scala-dsl-user-defined-serdes`
+
+See `StreamToTableJoinScalaIntegrationTestImplicitSerdesWithAvro` integration test in [`lightbend/kafka-streams-scala`](https://github.com/lightbend/kafka-streams-scala/).  This test doesn't exist in `apache/kafka` because we didn't want to add the Avro dep.
+
+https://github.com/lightbend/kafka-streams-scala/blob/v0.2.1/src/test/scala/com/lightbend/kafka/scala/streams/StreamToTableJoinScalaIntegrationTestImplicitSerdesWithAvro.scala#L61..L142
